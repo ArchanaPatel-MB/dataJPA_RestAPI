@@ -6,9 +6,7 @@ import org.hibernate.dialect.MySQL8Dialect;
 import org.hibernate.dialect.MySQLStorageEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,7 +33,7 @@ public class TestController extends MySQL8Dialect {
     }
 
     @GetMapping("/user/{id}")
-        public User user(@PathVariable("id") int id){
+        public Optional<User> user(@PathVariable("id") int id){
         return userservice.getUserById(id);
     }
 
@@ -49,10 +47,10 @@ public class TestController extends MySQL8Dialect {
          this.userservice.deleteUser(id);
          return "deleted successfully" ;
     }
-    @PutMapping("/user/{userId}")
-    public String updateUser(@PathVariable("userId") int userId){
-        this.userservice.uupdateUser(userId);
-        return "user updated";
+//    @PutMapping("/user/{userId}")
+//    public String updateUser(@PathVariable("userId") int userId){
+//        this.userservice.uupdateUser(userId);
+//        return "user updated";
     }
 
-}
+

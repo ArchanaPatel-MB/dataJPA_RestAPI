@@ -14,7 +14,7 @@ public class DemoApplication {
 	public static void main(String[] args) {
 
 		ApplicationContext context=SpringApplication.run(DemoApplication.class, args);
-		UserReository userreository=context.getBean(UserReository.class);
+//		UserReository userreository=context.getBean(UserReository.class);
 //		User user1=new User();
 //		user.setName("Archana");
 //		user.setCity("delhi");

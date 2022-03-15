@@ -1,49 +1,44 @@
 package com.example.demo.daoUserService;
 
-import ch.qos.logback.core.util.COWArrayList;
 import com.example.demo.entities.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Component
 public class UserService {
 
-    private static List<User> list=new ArrayList<>();
-    static{
-        list.add(new User(1,"los Angeles","Ishanvi","iam golang programmer"));
-        list.add(new User(2,"Angeles","Ishi","iam python programmer"));
-        list.add(new User(3,"los","Ishvi","iam benten programmer"));
-    }
+    @Autowired
+    private UserReository userReository;
+
 
     public List<User> geAallUser(){
-        return list;
+       return (List<User>) userReository.findAll();
     }
 
-    public User getUserById(Integer id){
-        User user=null;
-        user=list.stream().filter(user1 -> user1.getId()==id).findFirst().get();
+    public Optional<User> getUserById(Integer id){
+        Optional<User> user=userReository.findById(id);
+        System.out.println(user);
         return user;
     }
 
     public User addUser(User user){
-      list.add(user);
-      return user;
+      return   userReository.save(user);
     }
 
     public void deleteUser(int id){
-        list=list.stream().filter(user -> user.getId()!=id).collect(Collectors.toList());
+         userReository.deleteById(id);
     }
 
-    public void uupdateUser(int id){
-        list=list.stream().map(user -> {
-               if( user.getId()==id){
-                   user.setCity("atalanta");
-                   user.setStatus("inbult programmer");
-               }
-               return user;
-    }) .collect(Collectors.toList());
-    }
+//    public void uupdateUser(int id){
+//        list=list.stream().map(user -> {
+//               if( user.getId()==id){
+//                   user.setCity("atalanta");
+//                   user.setStatus("inbult programmer");
+//               }
+//               return user;
+//    }) .collect(Collectors.toList());
+//    }
 }
